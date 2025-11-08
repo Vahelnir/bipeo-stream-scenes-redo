@@ -1,5 +1,31 @@
 <script setup lang="ts">
+import { computed, onMounted, onUnmounted } from "vue";
 import Modal from "./modal.vue";
+import { useCountdown } from "@vueuse/core";
+
+const targetDuration = 500;
+const { remaining, start, stop } = useCountdown(targetDuration);
+
+onMounted(() => {
+  start();
+});
+
+onUnmounted(() => {
+  stop();
+});
+
+const formattedRemainingTime = computed(() => {
+  const mins = Math.floor(remaining.value / 60)
+    .toString()
+    .padStart(2, "0");
+  const secs = (remaining.value % 60).toString().padStart(2, "0");
+
+  return `${mins}:${secs}`;
+});
+
+const progress = computed(() => {
+  return ((targetDuration - remaining.value) / targetDuration) * 100;
+});
 </script>
 
 <template>
@@ -9,7 +35,16 @@ import Modal from "./modal.vue";
 
     <template #progress>
       <div class="h-0.5 w-full bg-white">
-        <div class="w-fit -translate-y-1/2 bg-[#03073f] px-1">00:00</div>
+        <div
+          :style="{
+            '--progress': progress + '%',
+            'margin-left':
+              'max(calc(var(--progress) - calc(var(--spacing) * 14)), 0px)',
+          }"
+          class="w-14 -translate-y-1/2 bg-[#03073f] text-center"
+        >
+          {{ formattedRemainingTime }}
+        </div>
       </div>
     </template>
   </Modal>
