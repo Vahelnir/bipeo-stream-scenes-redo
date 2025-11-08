@@ -64,6 +64,8 @@ const formattedTime = computed(() => {
     radial-gradient(transparent, #030636);
   background-color: #030636;
   background-repeat: repeat;
+  background-size: 50px 50px;
+  animation: background-animation 15s linear infinite;
 
   > div {
     background-image: radial-gradient(
@@ -75,15 +77,24 @@ const formattedTime = computed(() => {
 }
 
 .border-animation rect {
-  animation: dash-move 20s ease-out infinite alternate;
+  animation: dash-animation 20s ease-out infinite alternate;
 }
 
-@keyframes dash-move {
+@keyframes dash-animation {
   from {
     stroke-dashoffset: 60;
   }
   to {
     stroke-dashoffset: 80;
+  }
+}
+
+@keyframes background-animation {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 200px 40px;
   }
 }
 </style>
