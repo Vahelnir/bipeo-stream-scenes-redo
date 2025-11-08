@@ -40,12 +40,12 @@ const formattedTime = computed(() => {
         />
       </svg>
       <div
-        class="absolute top-2 left-24 rounded-lg bg-[#030636] px-4 font-bold"
+        class="absolute top-2 left-24 max-w-100 rounded-lg bg-[#030636] px-4 font-bold"
       >
         wii party - nintendo lofi
       </div>
       <div
-        class="absolute top-2 right-24 rounded-lg bg-[#030636] px-4 font-bold"
+        class="absolute top-2 right-24 w-60 rounded-lg bg-[#030636] px-4 text-center font-bold"
       >
         {{ formattedTime }}
       </div>
@@ -65,7 +65,7 @@ const formattedTime = computed(() => {
   background-size: 50px 50px;
   animation: background-animation 15s linear infinite;
 
-  > div {
+  > svg {
     background-image: radial-gradient(
       circle,
       rgba(3, 6, 54, 0) 0%,
@@ -75,7 +75,7 @@ const formattedTime = computed(() => {
 }
 
 .border-animation rect {
-  animation: dash-animation 20s ease-out infinite alternate;
+  animation: dash-animation 20s ease-in-out infinite alternate;
 }
 
 @keyframes dash-animation {
@@ -92,7 +92,7 @@ const formattedTime = computed(() => {
     background-position: 0 0;
   }
   to {
-    background-position: 200px 40px;
+    background-position: 200px 100px;
   }
 }
 </style>
