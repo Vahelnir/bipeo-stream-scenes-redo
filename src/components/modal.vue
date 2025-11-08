@@ -1,9 +1,13 @@
+<script setup lang="ts">
+import EntypoCross from "~icons/entypo/cross";
+</script>
+
 <template>
   <div class="relative">
     <div
       class="absolute -top-3.5 -left-1.5 z-1 flex h-8 w-12 items-center justify-center rounded-lg border-2 bg-transparent"
     >
-      X
+      <EntypoCross />
     </div>
     <div
       class="after:content-[' '] relative -m-1 ml-12 h-8 w-[calc(100%-(--spacing(12)))] rounded-t-xl rounded-b-none border-2 border-b-0 bg-[#03073f] after:absolute after:bottom-0 after:z-1 after:block after:h-2 after:w-full after:bg-[#03073f]"
