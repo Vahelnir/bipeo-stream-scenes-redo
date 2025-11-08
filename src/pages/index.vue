@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useNow } from "@vueuse/core";
 import { computed } from "vue";
-import Modal from "../components/modal.vue";
+import WelcomeStreamModal from "../components/welcome-stream-modal.vue";
 
 const time = useNow();
 
@@ -17,9 +17,9 @@ const formattedTime = computed(() => {
 </script>
 
 <template>
-  <div class="grid-bg">
+  <div class="h-dvh w-dvw bg-[#030636] px-2">
     <div
-      class="relative h-dvh w-dvw text-white overflow-hidden flex items-center justify-center"
+      class="grid-background-animated relative flex h-full w-full items-center justify-center overflow-hidden text-white"
     >
       <svg
         class="border-animation absolute inset-0"
@@ -30,7 +30,7 @@ const formattedTime = computed(() => {
           x="4"
           y="4"
           width="312"
-          height="152"
+          height="172"
           rx="6"
           fill="none"
           stroke="#fff"
@@ -40,25 +40,23 @@ const formattedTime = computed(() => {
         />
       </svg>
       <div
-        class="absolute left-24 top-2 rounded-lg bg-[#030636] px-4 font-bold"
+        class="absolute top-2 left-24 rounded-lg bg-[#030636] px-4 font-bold"
       >
         wii party - nintendo lofi
       </div>
       <div
-        class="absolute right-24 top-2 rounded-lg bg-[#030636] px-4 font-bold"
+        class="absolute top-2 right-24 rounded-lg bg-[#030636] px-4 font-bold"
       >
         {{ formattedTime }}
       </div>
 
-      <div>
-        <Modal />
-      </div>
+      <WelcomeStreamModal />
     </div>
   </div>
 </template>
 
 <style scoped>
-.grid-bg {
+.grid-background-animated {
   background-image:
     url("data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='40' height='40' fill='none'/%3E%3Cpath d='M 40 0 H 0 V 40' stroke='black' stroke-width='2'/%3E%3C/svg%3E"),
     radial-gradient(transparent, #030636);
