@@ -4,12 +4,13 @@ import MusicPlayer from "../components/music-player.vue";
 import DatetimeIndicator from "../components/datetime-indicator.vue";
 import UserMessages from "../components/user-messages.vue";
 import MdiTwitter from "~icons/mdi/twitter";
+import Measurement from "../components/measurement.vue";
 </script>
 
 <template>
   <div class="h-full w-full bg-[#030636] px-2">
     <div
-      class="grid-background-animated relative h-full w-full overflow-hidden p-8 text-white"
+      class="grid-background-animated relative h-full w-full overflow-hidden text-white"
     >
       <svg
         class="border-animation absolute inset-0"
@@ -43,6 +44,8 @@ import MdiTwitter from "~icons/mdi/twitter";
           <MdiTwitter class="mt-0.5" /> @Copypeo_dev
         </div>
       </div>
+
+      <Measurement v-if="false" />
     </div>
   </div>
 </template>

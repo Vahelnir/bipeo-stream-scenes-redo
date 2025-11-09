@@ -17,6 +17,13 @@ type Message = {
   duration: number;
 };
 
+const ALLOWED_SPAWN_AREAS = [
+  { x: 1320, y: 50, width: 250, height: 800 },
+  { x: 50, y: 50, width: 250, height: 800 },
+  { x: 50, y: 50, width: 1500, height: 200 },
+  { x: 50, y: 700, width: 1500, height: 150 },
+];
+
 const lastId = ref(0);
 const messages = ref<Message[]>([]);
 
@@ -35,15 +42,26 @@ onMounted(() => {
   }
 });
 
+function generatePosition() {
+  let area;
+  do {
+    area =
+      ALLOWED_SPAWN_AREAS[
+        Math.floor(Math.random() * ALLOWED_SPAWN_AREAS.length)
+      ];
+  } while (!area);
+  const x = Math.round(area.x + Math.random() * area.width);
+  const y = Math.round(area.y + Math.random() * area.height);
+  console.log(x, y);
+  return { x, y };
+}
+
 function createMessage() {
   return {
     id: lastId.value++,
     username: faker.person.firstName(),
     content: faker.lorem.sentence(),
-    position: {
-      x: faker.number.int({ min: 0, max: 80 }),
-      y: faker.number.int({ min: 0, max: 80 }),
-    },
+    position: generatePosition(),
     duration: MESSAGE_DURATION,
   };
 }
@@ -66,8 +84,8 @@ window.addMessage = () => {
       <Modal
         class="absolute h-30 w-80"
         :style="{
-          top: message.position.y + '%',
-          left: message.position.x + '%',
+          top: message.position.y + 'px',
+          left: message.position.x + 'px',
         }"
         v-for="message in messages"
         :key="message.id"
