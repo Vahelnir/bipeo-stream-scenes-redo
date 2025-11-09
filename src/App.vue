@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import { useWindowSize } from "@vueuse/core";
 
-import Index from "./pages/index.vue";
+import WelcomeScreen from "./pages/welcome-screen.vue";
 
 const { width, height } = useWindowSize();
 const dimensions = computed(() => ({
@@ -21,6 +21,6 @@ const scale = computed(() => Math.min(width.value / 1920, height.value / 1080));
       transformOrigin: 'top left',
     }"
   >
-    <Index />
+    <WelcomeScreen />
   </div>
 </template>
