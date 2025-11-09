@@ -3,7 +3,7 @@ import EntypoCross from "~icons/entypo/cross";
 </script>
 
 <template>
-  <div>
+  <div class="animate-modal-bounce">
     <div class="relative z-0 h-full w-full">
       <div
         class="absolute -top-2 -left-2 z-1 flex h-8 w-12 items-center justify-center rounded-lg border-2 bg-[#03073f]"
@@ -33,3 +33,19 @@ import EntypoCross from "~icons/entypo/cross";
     </div>
   </div>
 </template>
+
+<style scoped>
+.animate-modal-bounce {
+  animation: modal-bounce 8s ease-in-out infinite;
+}
+
+@keyframes modal-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+</style>
