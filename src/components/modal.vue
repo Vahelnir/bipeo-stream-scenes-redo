@@ -11,7 +11,7 @@ import EntypoCross from "~icons/entypo/cross";
         <EntypoCross />
       </div>
       <div
-        class="relative z-2 ml-12 h-8 w-[calc(100%-(--spacing(12)))] rounded-t-xl rounded-b-none border-2 border-b-0 bg-[#03073f] px-3 py-1 before:absolute before:bottom-0 before:left-0 before:z-1 before:block before:h-1 before:w-full before:translate-y-full before:bg-[#03073f]"
+        class="relative z-2 ml-12 h-8 w-[calc(100%-(--spacing(12)))] rounded-t-xl rounded-b-none border-2 border-b-0 bg-[#03073f] px-3 py-1 before:absolute before:bottom-px before:left-0 before:z-1 before:block before:h-1 before:w-full before:translate-y-full before:bg-[#03073f]"
       >
         <slot name="header" />
       </div>
