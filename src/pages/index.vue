@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import WelcomeStreamModal from "../components/welcome-stream-modal.vue";
-import MusicPlayer from "../components/music-player.vue";
 import DatetimeIndicator from "../components/datetime-indicator.vue";
-import UserMessages from "../components/user-messages.vue";
-import MdiTwitter from "~icons/mdi/twitter";
 import Measurement from "../components/measurement.vue";
+import MusicPlayer from "../components/music-player.vue";
+import UserMessages from "../components/user-messages.vue";
+import WelcomeStreamModal from "../components/welcome-stream-modal.vue";
+
+import MdiTwitter from "~icons/mdi/twitter";
 </script>
 
 <template>

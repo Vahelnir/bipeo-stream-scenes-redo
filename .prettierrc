@@ -1,3 +1,17 @@
 {
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "plugins": [
+    "prettier-plugin-tailwindcss",
+    "@ianvs/prettier-plugin-sort-imports"
+  ],
+  "importOrderTypeScriptVersion": "5.0.0",
+  "importOrderParserPlugins": ["typescript", "jsx"],
+  "importOrder": [
+    "^vue(\\/.*)?$",
+    "^@vueuse(\\/.*)?$",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^[.]",
+    "",
+    "^~icons(\\/.*)?$"
+  ]
 }

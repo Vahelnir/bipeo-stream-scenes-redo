@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useIntervalFn } from "@vueuse/core";
 import { computed, ref } from "vue";
+import { useIntervalFn } from "@vueuse/core";
 
 const fakePlaylist = [
   { artist: "Curly", title: "The River", duration: 4 * 60 + 30 },

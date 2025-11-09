@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { useWindowSize } from "@vueuse/core";
-import Index from "./pages/index.vue";
 import { computed } from "vue";
+import { useWindowSize } from "@vueuse/core";
+
+import Index from "./pages/index.vue";
 
 const { width, height } = useWindowSize();
 const dimensions = computed(() => ({

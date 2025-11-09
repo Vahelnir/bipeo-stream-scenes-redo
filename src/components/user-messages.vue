@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import Modal from "./modal.vue";
-import { faker } from "@faker-js/faker";
 import { useIntervalFn } from "@vueuse/core";
+import { faker } from "@faker-js/faker";
+
+import Modal from "./modal.vue";
 
 const MESSAGE_DURATION = 10; // in seconds
 
