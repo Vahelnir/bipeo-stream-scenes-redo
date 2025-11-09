@@ -2,12 +2,13 @@
 import WelcomeStreamModal from "../components/welcome-stream-modal.vue";
 import MusicPlayer from "../components/music-player.vue";
 import DatetimeIndicator from "../components/datetime-indicator.vue";
+import UserMessages from "../components/user-messages.vue";
 </script>
 
 <template>
   <div class="h-dvh w-dvw bg-[#030636] px-2">
     <div
-      class="grid-background-animated relative flex h-full w-full items-center justify-center overflow-hidden text-white"
+      class="grid-background-animated relative h-full w-full overflow-hidden p-8 text-white"
     >
       <svg
         class="border-animation absolute inset-0"
@@ -30,7 +31,9 @@ import DatetimeIndicator from "../components/datetime-indicator.vue";
       <MusicPlayer class="absolute top-2 left-24 max-w-100" />
       <DatetimeIndicator />
 
-      <WelcomeStreamModal />
+      <UserMessages />
+
+      <WelcomeStreamModal class="fixed inset-0 z-10 m-auto" />
     </div>
   </div>
 </template>
@@ -72,7 +75,7 @@ import DatetimeIndicator from "../components/datetime-indicator.vue";
     background-position: 0 0;
   }
   to {
-    background-position: 200px 100px;
+    background-position: 0 100px;
   }
 }
 </style>

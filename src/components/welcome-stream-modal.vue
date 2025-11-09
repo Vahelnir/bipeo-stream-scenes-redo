@@ -29,9 +29,9 @@ const progress = computed(
 </script>
 
 <template>
-  <Modal class="h-100 w-200">
-    <p class="animate-pulse text-5xl">[ CHARGEMENT EN COURS ]</p>
-    <p class="animate-pulse text-xl">Le stream commence bientot</p>
+  <Modal class="h-60 w-180">
+    <p class="animate-pulse text-4xl">[ CHARGEMENT EN COURS ]</p>
+    <p class="text animate-pulse uppercase">Le stream commence bientot</p>
 
     <template #progress>
       <div class="h-0.5 w-full bg-white">
@@ -41,7 +41,7 @@ const progress = computed(
             'margin-left':
               'max(calc(var(--progress) - calc(var(--spacing) * 14)), 0px)',
           }"
-          class="w-14 -translate-y-1/2 bg-[#03073f] text-center"
+          class="w-14 -translate-y-1/2 truncate bg-[#03073f] text-center"
         >
           {{ formattedRemainingTime }}
         </div>
