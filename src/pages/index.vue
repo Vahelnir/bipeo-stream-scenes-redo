@@ -32,11 +32,6 @@ import Measurement from "../components/measurement.vue";
       </svg>
       <MusicPlayer class="absolute top-3 left-24 max-w-100" />
       <DatetimeIndicator class="absolute top-3 right-24 w-60" />
-
-      <UserMessages />
-
-      <WelcomeStreamModal class="absolute inset-0 z-10 m-auto" />
-
       <div class="absolute bottom-5.5 left-24 w-44">
         <div
           class="flex h-6 justify-center gap-3 rounded-lg bg-[#030636] px-2 font-bold"
@@ -44,6 +39,10 @@ import Measurement from "../components/measurement.vue";
           <MdiTwitter class="mt-0.5" /> @Copypeo_dev
         </div>
       </div>
+
+      <UserMessages />
+
+      <WelcomeStreamModal class="absolute inset-0 z-10 m-auto" />
 
       <Measurement v-if="false" />
     </div>

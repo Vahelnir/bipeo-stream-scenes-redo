@@ -36,7 +36,7 @@ import EntypoCross from "~icons/entypo/cross";
 
 <style scoped>
 .animate-modal-bounce {
-  animation: modal-bounce 8s ease-in-out infinite;
+  animation: modal-bounce 6s ease-in-out infinite;
 }
 
 @keyframes modal-bounce {
