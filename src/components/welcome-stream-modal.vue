@@ -3,8 +3,8 @@ import { computed, onMounted, onUnmounted } from "vue";
 import Modal from "./modal.vue";
 import { useCountdown } from "@vueuse/core";
 
-const targetDuration = 500;
-const { remaining, start, stop } = useCountdown(targetDuration);
+const duration = 500;
+const { remaining, start, stop } = useCountdown(duration);
 
 onMounted(() => {
   start();
@@ -23,15 +23,15 @@ const formattedRemainingTime = computed(() => {
   return `${mins}:${secs}`;
 });
 
-const progress = computed(() => {
-  return ((targetDuration - remaining.value) / targetDuration) * 100;
-});
+const progress = computed(
+  () => ((duration - remaining.value) / duration) * 100,
+);
 </script>
 
 <template>
   <Modal class="h-100 w-200">
-    <p class="text-5xl">[ CHARGEMENT EN COURS ]</p>
-    <p class="text-xl">Le stream commence bientot</p>
+    <p class="animate-pulse text-5xl">[ CHARGEMENT EN COURS ]</p>
+    <p class="animate-pulse text-xl">Le stream commence bientot</p>
 
     <template #progress>
       <div class="h-0.5 w-full bg-white">
