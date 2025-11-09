@@ -4,7 +4,7 @@ import DatetimeIndicator from "../components/datetime-indicator.vue";
 import Measurement from "../components/measurement.vue";
 import MusicPlayer from "../components/music-player.vue";
 import UserMessages from "../components/user-messages.vue";
-import WelcomeStreamModal from "../components/welcome-stream-modal.vue";
+import WelcomeStreamModal from "../components/welcome-screen/welcome-stream-modal.vue";
 
 import MdiTwitter from "~icons/mdi/twitter";
 </script>

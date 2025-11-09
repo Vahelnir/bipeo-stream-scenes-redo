@@ -67,6 +67,7 @@ function createMessage() {
   };
 }
 
+// @ts-expect-error testing only
 window.addMessage = () => {
   messages.value.push(createMessage());
 };

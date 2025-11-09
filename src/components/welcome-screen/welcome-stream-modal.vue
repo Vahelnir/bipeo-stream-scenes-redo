@@ -2,7 +2,7 @@
 import { computed, onMounted, onUnmounted } from "vue";
 import { useCountdown } from "@vueuse/core";
 
-import Modal from "./modal.vue";
+import Modal from "../modal.vue";
 
 const duration = 480;
 const { remaining, start, stop } = useCountdown(duration);
