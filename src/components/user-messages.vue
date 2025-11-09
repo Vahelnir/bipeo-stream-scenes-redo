@@ -73,7 +73,7 @@ window.addMessage = () => {
 </script>
 
 <template>
-  <div class="relative h-full w-full">
+  <div class="relative h-full w-full pointer-events-none">
     <TransitionGroup
       enter-active-class="transition-all duration-300 ease-in-out"
       enter-from-class="translate-y-5 scale-95 opacity-0"
