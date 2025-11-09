@@ -1,11 +1,45 @@
+<script setup lang="ts">
+import { useIntervalFn } from "@vueuse/core";
+import { computed, ref } from "vue";
+
+const fakePlaylist = [
+  { artist: "Curly", title: "The River", duration: 4 * 60 + 30 },
+  { artist: "ghost.", title: "HIGH", duration: 3 * 60 + 40 },
+  { artist: "Dada Jones", title: "Drunk like me", duration: 2 * 60 + 34 },
+];
+
+const currentTrackIndex = ref(0);
+const currentTime = ref(0);
+
+const currentTrack = computed(() => fakePlaylist[currentTrackIndex.value]);
+const progress = computed(() =>
+  currentTrack.value
+    ? (currentTime.value / currentTrack.value.duration) * 100
+    : 0,
+);
+
+useIntervalFn(() => {
+  if (!currentTrack.value) return;
+
+  currentTime.value += 1;
+  if (currentTime.value >= currentTrack.value.duration) {
+    currentTime.value = 0;
+    currentTrackIndex.value =
+      (currentTrackIndex.value + 1) % fakePlaylist.length;
+  }
+}, 1000);
+</script>
+
 <template>
-  <div class="h-6 rounded-lg bg-[#030636] px-2 font-bold">
+  <div class="h-6 rounded-lg bg-[#030636] px-2 font-bold" v-if="currentTrack">
     <div
-      class="absolute top-0 h-full rounded bg-[#ffffff45]"
+      class="absolute top-0 h-full w-full rounded bg-[#ffffff45]"
       :style="{
-        width: `max(calc(${25}% - calc(var(--spacing) * 4)), 0%)`,
+        clipPath: `inset(0 ${100 - progress}% 0 0)`,
       }"
     ></div>
-    <div class="truncate overflow-hidden px-2">Curly - The River</div>
+    <div class="truncate overflow-hidden px-2">
+      {{ currentTrack.artist }} - {{ currentTrack.title }}
+    </div>
   </div>
 </template>
