@@ -33,7 +33,7 @@ useIntervalFn(() => {
 <template>
   <div class="h-6 rounded-lg bg-[#030636] px-2 font-bold" v-if="currentTrack">
     <div
-      class="absolute top-0 h-full w-full rounded bg-[#ffffff45]"
+      class="absolute top-0 h-full w-full rounded bg-[#ffffff45] transition-[clip-path] duration-1000 ease-linear"
       :style="{
         clipPath: `inset(0 ${100 - progress}% 0 0)`,
       }"
