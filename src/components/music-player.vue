@@ -3,9 +3,9 @@ import { computed, ref } from "vue";
 import { useIntervalFn } from "@vueuse/core";
 
 const fakePlaylist = [
+  { artist: "Dada Jones", title: "Drunk like me", duration: 2 * 60 + 34 },
   { artist: "Curly", title: "The River", duration: 4 * 60 + 30 },
   { artist: "ghost.", title: "HIGH", duration: 3 * 60 + 40 },
-  { artist: "Dada Jones", title: "Drunk like me", duration: 2 * 60 + 34 },
 ];
 
 const currentTrackIndex = ref(0);
@@ -33,7 +33,7 @@ useIntervalFn(() => {
 <template>
   <div class="h-6 rounded-lg bg-[#030636] px-2 font-bold" v-if="currentTrack">
     <div
-      class="absolute top-0 h-full w-full rounded bg-[#ffffff45] transition-[clip-path] duration-1000 ease-linear"
+      class="absolute top-0 h-full w-[calc(100%-(--spacing(4)))] rounded bg-[#ffffff45] transition-[clip-path] duration-1000 ease-linear"
       :style="{
         clipPath: `inset(0 ${100 - progress}% 0 0)`,
       }"
