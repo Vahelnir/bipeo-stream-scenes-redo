@@ -3,10 +3,11 @@ import WelcomeStreamModal from "../components/welcome-stream-modal.vue";
 import MusicPlayer from "../components/music-player.vue";
 import DatetimeIndicator from "../components/datetime-indicator.vue";
 import UserMessages from "../components/user-messages.vue";
+import MdiTwitter from "~icons/mdi/twitter";
 </script>
 
 <template>
-  <div class="h-dvh w-dvw bg-[#030636] px-2">
+  <div class="h-full w-full bg-[#030636] px-2">
     <div
       class="grid-background-animated relative h-full w-full overflow-hidden p-8 text-white"
     >
@@ -28,12 +29,20 @@ import UserMessages from "../components/user-messages.vue";
           stroke-linecap="butt"
         />
       </svg>
-      <MusicPlayer class="absolute top-2 left-24 max-w-100" />
-      <DatetimeIndicator />
+      <MusicPlayer class="absolute top-3 left-24 max-w-100" />
+      <DatetimeIndicator class="absolute top-3 right-24 w-60" />
 
       <UserMessages />
 
-      <WelcomeStreamModal class="fixed inset-0 z-10 m-auto" />
+      <WelcomeStreamModal class="absolute inset-0 z-10 m-auto" />
+
+      <div class="absolute bottom-5.5 left-24 w-44">
+        <div
+          class="flex h-6 justify-center gap-3 rounded-lg bg-[#030636] px-2 font-bold"
+        >
+          <MdiTwitter class="mt-0.5" /> @Copypeo_dev
+        </div>
+      </div>
     </div>
   </div>
 </template>

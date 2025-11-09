@@ -41,7 +41,7 @@ const progress = computed(
             'margin-left':
               'max(calc(var(--progress) - calc(var(--spacing) * 14)), 0px)',
           }"
-          class="w-14 -translate-y-1/2 truncate bg-[#03073f] text-center"
+          class="w-20 -translate-y-1/2 truncate bg-[#03073f] text-center text-2xl"
         >
           {{ formattedRemainingTime }}
         </div>

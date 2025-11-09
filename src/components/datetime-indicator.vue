@@ -16,9 +16,7 @@ const formattedTime = computed(() => {
 </script>
 
 <template>
-  <div
-    class="absolute top-2 right-24 h-6 w-60 rounded-lg bg-[#030636] px-4 text-center font-bold"
-  >
+  <div class="h-6 rounded-lg bg-[#030636] px-4 text-center font-bold">
     {{ formattedTime }}
   </div>
 </template>
