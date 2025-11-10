@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { useWindowSize } from "@vueuse/core";
 
+import LoadingScreen from "./pages/loading-screen.vue";
 import WelcomeScreen from "./pages/welcome-screen.vue";
 
 const { width, height } = useWindowSize();
@@ -21,6 +22,7 @@ const scale = computed(() => Math.min(width.value / 1920, height.value / 1080));
       transformOrigin: 'top left',
     }"
   >
-    <WelcomeScreen />
+    <!-- <WelcomeScreen /> -->
+    <LoadingScreen />
   </div>
 </template>

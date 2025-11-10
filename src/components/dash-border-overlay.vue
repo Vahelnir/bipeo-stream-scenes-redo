@@ -21,6 +21,7 @@
           stroke-linecap="butt"
         />
       </svg>
+
       <slot />
     </div>
   </div>
