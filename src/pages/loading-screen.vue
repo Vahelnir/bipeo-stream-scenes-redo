@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from "vue";
+import { useCurrentElement } from "@vueuse/core";
 import { faker } from "@faker-js/faker";
 
 import DashBorderOverlay from "../components/dash-border-overlay.vue";
@@ -7,6 +8,7 @@ import { wait } from "../utils/wait";
 
 const CIRCLE_START_ANGLE = 180;
 
+const componentRootElement = useCurrentElement<HTMLElement>();
 const loaderElement = ref<HTMLElement | undefined>();
 
 function circleStyle(index: number, total: number, radius: number) {
@@ -347,7 +349,7 @@ const finishedStepsCount = computed(() =>
 );
 
 onMounted(async () => {
-  wholeAnimation();
+  await wholeAnimation();
 });
 
 async function wholeAnimation() {
@@ -355,6 +357,11 @@ async function wholeAnimation() {
   await animateLogsWriting();
   await wait(400);
   await animateBlinkLoaderSuccess().finished;
+  await wait(1000);
+  await componentRootElement.value.animate([{ opacity: 1 }, { opacity: 0 }], {
+    duration: 500,
+    fill: "forwards",
+  }).finished;
 }
 
 function animateLoaderInPlace() {
@@ -412,7 +419,7 @@ async function animateLogsWriting() {
             v-if="block.title"
             :class="
               block.type === 'category'
-                ? 'text-[#030636] bg-white px-6 rounded text-lg'
+                ? 'text-bipeo-dark-blue bg-white px-6 rounded text-lg'
                 : ''
             "
           >

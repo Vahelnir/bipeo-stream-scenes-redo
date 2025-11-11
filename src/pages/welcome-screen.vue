@@ -15,7 +15,7 @@ import MdiTwitter from "~icons/mdi/twitter";
     <DatetimeIndicator class="absolute top-3 right-24 w-60" />
     <div class="absolute bottom-5.5 left-24 w-44">
       <div
-        class="flex h-6 justify-center gap-3 rounded-lg bg-[#030636] px-2 font-bold"
+        class="flex h-6 justify-center gap-3 rounded-lg bg-bipeo-dark-blue px-2 font-bold"
       >
         <MdiTwitter class="mt-0.5" /> @Copypeo_dev
       </div>

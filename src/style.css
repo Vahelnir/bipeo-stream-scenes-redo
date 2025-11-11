@@ -4,3 +4,7 @@ html,
 body {
   font-family: "Cascadia Code", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+@theme {
+  --color-bipeo-dark-blue: #030636;
+}

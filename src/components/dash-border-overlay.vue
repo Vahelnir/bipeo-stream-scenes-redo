@@ -5,7 +5,7 @@ defineOptions({
 </script>
 
 <template>
-  <div class="h-full w-full bg-[#030636] px-2">
+  <div class="h-full w-full bg-bipeo-dark-blue px-2">
     <div
       class="grid-background-animated relative h-full w-full overflow-hidden text-white"
     >
@@ -51,11 +51,7 @@ defineOptions({
   animation: background-animation 15s linear infinite;
 
   > .grid-background-animated__inside {
-    background-image: radial-gradient(
-      circle,
-      rgba(3, 6, 54, 0) 0%,
-      rgba(3, 6, 54, 1) 90%
-    );
+    background-image: radial-gradient(circle, transparent, #030636 90%);
   }
 }
 

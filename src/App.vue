@@ -15,6 +15,7 @@ const scale = computed(() => Math.min(width.value / 1920, height.value / 1080));
 
 <template>
   <div
+    class="bg-bipeo-dark-blue"
     :style="{
       width: `${dimensions.width}px`,
       height: `${dimensions.height}px`,

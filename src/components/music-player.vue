@@ -31,7 +31,10 @@ useIntervalFn(() => {
 </script>
 
 <template>
-  <div class="h-6 rounded-lg bg-[#030636] px-2 font-bold" v-if="currentTrack">
+  <div
+    class="h-6 rounded-lg bg-bipeo-dark-blue px-2 font-bold"
+    v-if="currentTrack"
+  >
     <div
       class="absolute top-0 h-full w-[calc(100%-(--spacing(4)))] rounded bg-[#ffffff45] transition-[clip-path] duration-1000 ease-linear"
       :style="{
