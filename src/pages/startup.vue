@@ -5,6 +5,7 @@ import { faker } from "@faker-js/faker";
 import { useRouter } from "vue-router";
 
 import DashBorderOverlay from "../components/dash-border-overlay.vue";
+import { roundDecimals } from "../utils/round-decimals";
 import { wait } from "../utils/wait";
 
 const CIRCLE_START_ANGLE = 180;
@@ -17,11 +18,15 @@ const loaderElement = ref<HTMLElement | undefined>();
 function circleStyle(index: number, total: number, radius: number) {
   const angle = CIRCLE_START_ANGLE + ((index - 1) * 360) / total;
   const rad = (angle * Math.PI) / 180;
-  const x = Math.cos(rad) * radius;
-  const y = Math.sin(rad) * radius;
+  const cosX = roundDecimals(Math.cos(rad), 2);
+  const sinY = roundDecimals(Math.sin(rad), 2);
+  const x = cosX * radius;
+  const y = sinY * radius;
   return {
     left: `calc(50% + ${x}px - 1.2rem)`,
     top: `calc(50% + ${y}px - 1.2rem)`,
+    "--circle-translate-x": cosX,
+    "--circle-translate-y": sinY,
   };
 }
 
@@ -357,14 +362,18 @@ onMounted(async () => {
 
 async function wholeAnimation() {
   await animateLoaderInPlace().finished;
+
   await animateLogsWriting();
   await wait(400);
+
   await animateBlinkLoaderSuccess().finished;
   await wait(1000);
+
   await componentRootElement.value.animate([{ opacity: 1 }, { opacity: 0 }], {
     duration: 500,
     fill: "forwards",
   }).finished;
+
   await nextPage();
 }
 
@@ -448,10 +457,10 @@ function nextPage() {
         <div
           v-for="i in 8"
           :key="i"
-          class="absolute rounded-full h-10 w-10"
+          class="absolute rounded-full h-10 w-10 transition-transform ease-in-out"
           :class="{
             'bg-white/25': finishedStepsCount < i,
-            'bg-white': finishedStepsCount >= i,
+            'bg-white circle-active': finishedStepsCount >= i,
           }"
           :style="circleStyle(i, 8, 10 * 16)"
         ></div>
@@ -459,3 +468,12 @@ function nextPage() {
     </div>
   </DashBorderOverlay>
 </template>
+
+<style scoped>
+.circle-active {
+  transform: translate(
+    calc(var(--circle-translate-x) * 2em),
+    calc(var(--circle-translate-y) * 2em)
+  );
+}
+</style>
