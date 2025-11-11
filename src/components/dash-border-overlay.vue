@@ -1,28 +1,41 @@
+<script setup lang="ts">
+defineOptions({
+  inheritAttrs: false,
+});
+</script>
+
 <template>
   <div class="h-full w-full bg-[#030636] px-2">
     <div
       class="grid-background-animated relative h-full w-full overflow-hidden text-white"
     >
-      <svg
-        class="border-animation absolute inset-0"
-        viewBox="0 0 320 180"
-        preserveAspectRatio="none"
-      >
-        <rect
-          x="4"
-          y="4"
-          width="312"
-          height="172"
-          rx="6"
-          fill="none"
-          stroke="#fff"
-          stroke-width="1"
-          stroke-dasharray="180 80 140 80"
-          stroke-linecap="butt"
-        />
-      </svg>
+      <div class="grid-background-animated__inside h-full w-full">
+        <svg
+          class="border-animation"
+          viewBox="0 0 320 180"
+          preserveAspectRatio="none"
+        >
+          <rect
+            x="4"
+            y="4"
+            width="312"
+            height="172"
+            rx="6"
+            fill="none"
+            stroke="#fff"
+            stroke-width="1"
+            stroke-dasharray="180 80 140 80"
+            stroke-linecap="butt"
+          />
+        </svg>
 
-      <slot />
+        <div
+          class="absolute top-0 h-full w-full max-h-full max-w-full p-12"
+          v-bind="$attrs"
+        >
+          <slot />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -37,7 +50,7 @@
   background-size: 50px 50px;
   animation: background-animation 15s linear infinite;
 
-  > svg {
+  > .grid-background-animated__inside {
     background-image: radial-gradient(
       circle,
       rgba(3, 6, 54, 0) 0%,
