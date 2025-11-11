@@ -1,23 +1,13 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useAnimate } from "@vueuse/core";
+import { computed, onMounted, reactive, ref } from "vue";
+import { faker } from "@faker-js/faker";
 
 import DashBorderOverlay from "../components/dash-border-overlay.vue";
+import { wait } from "../utils/wait";
 
 const CIRCLE_START_ANGLE = 180;
 
 const loaderElement = ref<HTMLElement | undefined>();
-useAnimate(
-  loaderElement,
-  [
-    { opacity: 0, transform: "translateX(-112.7%)" },
-    { opacity: 0, transform: "translateX(-112.7%)", offset: 0.5 },
-    { opacity: 1, transform: "translateX(-112.7%)", offset: 0.6 },
-    { opacity: 1, transform: "translateX(-112.7%)", offset: 0.9 },
-    { opacity: 1, transform: "translateX(0%)" },
-  ],
-  { duration: 3000, easing: "ease-in-out" },
-);
 
 function circleStyle(index: number, total: number, radius: number) {
   const angle = CIRCLE_START_ANGLE + ((index - 1) * 360) / total;
@@ -29,244 +19,411 @@ function circleStyle(index: number, total: number, radius: number) {
     top: `calc(50% + ${y}px - 1.2rem)`,
   };
 }
+
+type Block = {
+  type: "category" | "sub-category";
+  title: string;
+  logs: {
+    label: string;
+    status?: string;
+    after?: number;
+  }[];
+  after?: number;
+  bigPadding: boolean;
+};
+
+const logs: Block[] = [
+  {
+    type: "category",
+    after: 1000,
+    title:
+      "CopypeOS [v1.5.8] - Compilation personnalisée du noyau: xnu-bp/RELEASE_x64",
+    logs: [
+      { label: "Identifiant machine : BPE-LX9007-42", after: 100 },
+      { label: "Micrologiciel : EFI unifié Copypeo v3.2", after: 100 },
+      { label: "Démarrage sécurisé : ACTIVÉ", after: 100 },
+    ],
+    bigPadding: false,
+  },
+  {
+    type: "sub-category",
+    title: "[DÉMARRAGE] Vérification des interfaces matérielles...",
+    logs: [
+      {
+        after: 1000,
+        label: "Processeur : Bipeon Zeta-9 @ 4.2THz (16 cœurs hybrides)",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Mémoire : 65536Mo Q-RAM5 @ 10.4GT/s",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Carte graphique : NeuraX G1 Neural Array (1024 cours)",
+        status: "OK",
+      },
+      {
+        after: 700,
+        label: "Disque : Module FluxDrive NX1 2.5Po à état solide",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "TPM : Quantum Seal intégré v2.1",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Refroidissement : Contrôleur ThermoSys v3.0",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Affichage : Interface VantaPanel UHDR (pipeline 64 bits)",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Batterie : 87% - Santé optimale",
+        status: "OK",
+      },
+    ],
+    bigPadding: false,
+  },
+  {
+    type: "sub-category",
+    title: "[SÉCURITÉ]",
+    after: 1000,
+    logs: [
+      {
+        after: 100,
+        label: "Vérification du démarrage sécurisé",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Vérification des partitions protégées",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Analyse des maliciels",
+        status: "OK",
+      },
+      {
+        label: "Vérification des erreurs mémoire",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Intégrité système : empreinte SHA-256 validée",
+        status: "OK",
+      },
+    ],
+    bigPadding: false,
+  },
+  {
+    type: "sub-category",
+    title: "[INIT] Montage des systèmes de fichiers...",
+    after: 100,
+    logs: [
+      {
+        after: 500,
+        label: "/dev/bpeOs1 monté sur /",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "/dev/bpeOs2 monté sur /home",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "/dev/bpeOs3 monté sur /data",
+        status: "OK",
+      },
+    ],
+    bigPadding: false,
+  },
+  {
+    type: "sub-category",
+    title: "[RÉSEAU] Initialisation de la pile réseau...",
+    logs: [
+      {
+        after: 500,
+        label: "Interface wlano (Wi-Fi) détectée",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Connexion établie avec le point d'accès : 'BipeoNet'",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Liaison avec Tour-S v2.6 établie",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Canal de transmission activé : Port 8825 <--> Relais orbital",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Bail DHCP obtenu : 192.168.1.42",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Passerelle atteignable via Tour-S",
+        status: "OK",
+      },
+      {
+        after: 500,
+        label: "Service DNS démarré (bpdnsd)",
+        status: "OK",
+      },
+    ],
+    bigPadding: false,
+  },
+  {
+    type: "sub-category",
+    after: 500,
+    title: "[SYSTÈME] Lancement des services de base...",
+    logs: [
+      {
+        after: 100,
+        label: "Planificateur de tâches (bpe-crond)",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Journalisation système (bpe-logger)",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Service d'authentification (authd)",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Démon de file de messages (mq-bpe)",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Observateur d'événements disque (fswatch)",
+        status: "OK",
+      },
+    ],
+    bigPadding: false,
+  },
+  {
+    type: "sub-category",
+    after: 100,
+    title: "[NŒUD CENTRAL] Démarrage des modules principaux...",
+    logs: [
+      {
+        after: 500,
+        label: "MindCore v2.4.9 initialisé",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Interface StreamBridge activée",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Démon de synchronisation audio/vidéo (avsd) lancé",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Gestionnaire de scènes actif",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Pipeline de rendu Overlay prêt",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "AudioMux : 2 canaux détectés",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Nœud encodeur (x264 / AAC) opérationnel",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Collecteur de métriques en service",
+        status: "OK",
+      },
+    ],
+    bigPadding: false,
+  },
+  {
+    type: "sub-category",
+    after: 100,
+    title: "[RÉSEAU] Connexion aux services de diffusion...",
+    logs: [
+      {
+        after: 500,
+        label: "Résolution de api.twitch.tv...",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Connexion établie avec le serveur d'ingest Twitch (par01)...",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Clé de stream vérifiée",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Démon d'écoute du chat initialisé",
+        status: "OK",
+      },
+      {
+        after: 500,
+        label: "Lien virtuel OBSLink établi",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Surveillance du temps de diffusion activée",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "WebSocket : chat.bipeo.lan <-> passerelle IRC Twitch en ligne",
+        status: "OK",
+      },
+      {
+        after: 100,
+        label: "Analyse du stream...",
+        status: "OK",
+      },
+    ],
+    bigPadding: false,
+  },
+  // TODO: move this in the wholeAnimation function
+  {
+    type: "category",
+    after: 400,
+    title: "Liste des viewers ayant envoyé un message dans le chat :",
+    logs: Array.from({ length: 12 }, (_, i) => ({
+      after: 50,
+      label: `- ${faker.internet.displayName()}`,
+      messageCount: faker.number.int({ min: 1, max: 150 }),
+      get status() {
+        return `${this.messageCount} MSG`;
+      },
+    })).sort((a, b) => b.messageCount - a.messageCount),
+    bigPadding: true,
+  },
+  {
+    type: "category",
+    title: "Démarrage terminé. Lancement immédiat de l'interface graphique...",
+    logs: [],
+    bigPadding: false,
+  },
+];
+
+const visibleBlocks = ref<Block[]>([]);
+const finishedStepsCount = computed(() =>
+  Math.max(visibleBlocks.value.length - 1, 0),
+);
+
+onMounted(async () => {
+  wholeAnimation();
+});
+
+async function wholeAnimation() {
+  await animateLoaderInPlace().finished;
+  await animateLogsWriting();
+  await wait(400);
+  await animateBlinkLoaderSuccess().finished;
+}
+
+function animateLoaderInPlace() {
+  if (!loaderElement.value) {
+    throw new Error("Loader element not found");
+  }
+
+  return loaderElement.value.animate(
+    [
+      { opacity: 0, transform: "translateX(-112.7%)" },
+      { opacity: 0, transform: "translateX(-112.7%)", offset: 0.5 },
+      { opacity: 1, transform: "translateX(-112.7%)", offset: 0.6 },
+      { opacity: 1, transform: "translateX(-112.7%)", offset: 0.9 },
+      { opacity: 1, transform: "translateX(0%)" },
+    ],
+    { duration: 3000, easing: "ease-in-out" },
+  );
+}
+
+function animateBlinkLoaderSuccess() {
+  if (!loaderElement.value) {
+    throw new Error("Loader element not found");
+  }
+
+  return loaderElement.value.animate(
+    [{ opacity: 1 }, { opacity: 0.25 }, { opacity: 1 }],
+    { duration: 125, iterations: 2 },
+  );
+}
+
+async function animateLogsWriting() {
+  for (const block of logs) {
+    const visibleBlock: Block = reactive({ ...block, logs: [] });
+    if (block.after !== undefined && block.after > 0) {
+      await wait(block.after);
+    }
+    visibleBlocks.value.push(visibleBlock);
+
+    for (const log of block.logs) {
+      if (log.after !== undefined && log.after > 0) {
+        await wait(log.after);
+      }
+      visibleBlock.logs.push(log);
+    }
+  }
+}
 </script>
 
 <template>
   <DashBorderOverlay class="grid grid-cols-2">
-    <div class="text-white font-bold overflow-hidden">
+    <div class="flex flex-col text-white font-bold overflow-hidden justify-end">
       <div>
-        <div class="mb-8">
-          <p class="text-[#030636] bg-white p-1 px-6 rounded text-lg">
-            CopypeOS [v1.5.8] - Compilation personnalisée du noyau:
-            xnu-bp/RELEASE_x64
+        <div v-for="(block, bIdx) in visibleBlocks" :key="bIdx" class="mb-6">
+          <p
+            v-if="block.title"
+            :class="
+              block.type === 'category'
+                ? 'text-[#030636] bg-white px-6 rounded text-lg'
+                : ''
+            "
+          >
+            {{ block.title }}
           </p>
-          <ul class="ps-6 mt-2">
-            <li>Identifiant machine : BPE-LX9007-42</li>
-            <li>Micrologiciel : EFI unifié Copypeo v3.2</li>
-            <li>Démarrage sécurisé : ACTIVÉ</li>
-          </ul>
-        </div>
-
-        <div class="mb-8">
-          <p>[DÉMARRAGE] Vérification des interfaces matérielles...</p>
-          <ul class="ps-6 mt-2">
-            <li class="flex">
-              <span class="flex-1">
-                Processeur : Bipeon Zeta-9 @ 4.2THz (16 cœurs hybrides)
-              </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> Mémoire : 65536Mo Q-RAM5 @ 10.4GT/s </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1">
-                Carte graphique : NeuraX G1 Neural Array (1024 cours)
-              </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1">
-                Disque : Module FluxDrive NX1 2.5Po à état solide
-              </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> TPM : Quantum Seal intégré v2.1 </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1">
-                Refroidissement : Contrôleur ThermoSys v3.0
-              </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1">
-                Affichage : Interface VantaPanel UHDR (pipeline 64 bits)
-              </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> Batterie : 87% - Santé optimale </span>
-              <span>[ OK ]</span>
+          <ul :class="block.bigPadding ? 'ps-12 mt-2' : 'ps-6 mt-2'">
+            <li v-for="(log, i) in block.logs" :key="i" class="flex">
+              <span class="flex-1">{{ log.label }}</span>
+              <span v-if="'status' in log">[ {{ log.status }} ]</span>
             </li>
           </ul>
-        </div>
-
-        <div class="mb-8">
-          <p>[SÉCURITÉ]</p>
-          <ul class="ps-6 mt-2">
-            <li class="flex">
-              <span class="flex-1"> Vérification du démarrage sécurisé </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1">
-                Vérification des partitions protégées
-              </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> Analyse des maliciels </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> Vérification des erreurs mémoire </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1">
-                Intégrité système : empreinte SHA-256 validée
-              </span>
-              <span>[ OK ]</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="mb-8">
-          <p>[INIT] Montage des systèmes de fichiers...</p>
-          <ul class="ps-6 mt-2">
-            <li class="flex">
-              <span class="flex-1"> /dev/bpeOs1 monté sur / </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> /dev/bpeOs2 monté sur /home </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> /dev/bpeOs3 monté sur /data </span>
-              <span>[ OK ]</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="mb-8">
-          <p>[RÉSEAU] Initialisation de la pile réseau...</p>
-          <ul class="ps-6 mt-2">
-            <li class="flex">
-              <span class="flex-1"> Interface wlano (Wi-Fi) détectée </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1">
-                Connexion établie avec le point d'accès : "BipeoNet"
-              </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> Liaison avec Tour-S v2.6 établie </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1">
-                Canal de transmission activé : Port 8825 &lt;--› Relais orbital
-              </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> Bail DHCP obtenu : 192.168.1.42 </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> Passerelle atteignable via Tour-S </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> Service DNS démarré (bpdnsd) </span>
-              <span>[ OK ]</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="mb-8">
-          <p>[SYSTÈME] Lancement des services de base...</p>
-          <ul class="ps-6 mt-2">
-            <li class="flex">
-              <span class="flex-1"> Planificateur de tâches (bpe-crond) </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> Journalisation système (bpe-logger) </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> Service d'authentification (authd) </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> Démon de file de messages (mq-bpe) </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1">
-                Observateur d'événements disque (fswatch)
-              </span>
-              <span>[ OK ]</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="mb-8">
-          <p>[NŒUD CENTRAL] Démarrage des modules principaux...</p>
-          <ul class="ps-6 mt-2">
-            <li class="flex">
-              <span class="flex-1"> MindCore v2.4.9 initialisé </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> Interface StreamBridge activée </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1">
-                Démon de synchronisation audio/vidéo (avsd) lancé
-              </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> Gestionnaire de scènes actif </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> Pipeline de rendu Overlay prêt </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> AudioMux : 2 canaux détectés </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1">
-                Nœud encodeur (x264 / AAC) opérationnel
-              </span>
-              <span>[ OK ]</span>
-            </li>
-            <li class="flex">
-              <span class="flex-1"> Collecteur de métriques en service </span>
-              <span>[ OK ]</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="mb-8">
-          <p class="text-[#030636] bg-white p-1 px-6 rounded text-lg">
-            Liste des viewers ayant envoyé un message dans le chat :
-          </p>
-          <ul class="ps-20 mt-2">
-            <li class="flex">
-              <span class="flex-1"> - A </span>
-              <span>[ 77 MSG ]</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="mb-6">
-          <p class="text-[#030636] bg-white p-1 px-6 rounded text-lg">
-            Démarrage terminé. Lancement immédiat de l'interface graphique...
-          </p>
         </div>
       </div>
     </div>
@@ -276,7 +433,11 @@ function circleStyle(index: number, total: number, radius: number) {
         <div
           v-for="i in 8"
           :key="i"
-          class="absolute bg-white/25 rounded-full h-10 w-10"
+          class="absolute rounded-full h-10 w-10"
+          :class="{
+            'bg-white/25': finishedStepsCount < i,
+            'bg-white': finishedStepsCount >= i,
+          }"
           :style="circleStyle(i, 8, 10 * 16)"
         ></div>
       </div>
