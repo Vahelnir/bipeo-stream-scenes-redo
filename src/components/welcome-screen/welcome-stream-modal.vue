@@ -4,8 +4,19 @@ import { useCountdown } from "@vueuse/core";
 
 import Modal from "../modal.vue";
 
-const duration = 480;
-const { remaining, start, stop } = useCountdown(duration);
+const props = defineProps<{
+  duration: number;
+}>();
+
+const emit = defineEmits<{
+  timerEnded: [];
+}>();
+
+const { remaining, start, stop } = useCountdown(() => props.duration, {
+  onComplete() {
+    emit("timerEnded");
+  },
+});
 
 onMounted(() => {
   start();
@@ -25,7 +36,7 @@ const formattedRemainingTime = computed(() => {
 });
 
 const progress = computed(
-  () => ((duration - remaining.value) / duration) * 100,
+  () => ((props.duration - remaining.value) / props.duration) * 100,
 );
 </script>
 

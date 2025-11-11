@@ -1,9 +1,10 @@
 import tailwindcss from "@tailwindcss/vite";
 import vue from "@vitejs/plugin-vue";
 import Icons from "unplugin-icons/vite";
+import VueRouter from "unplugin-vue-router/vite";
 import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [vue(), tailwindcss(), Icons({ compiler: "vue3" })],
+  plugins: [VueRouter(), vue(), tailwindcss(), Icons({ compiler: "vue3" })],
 });

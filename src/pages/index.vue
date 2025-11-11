@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useRouter } from "vue-router";
+
 import DashBorderOverlay from "../components/dash-border-overlay.vue";
 import DatetimeIndicator from "../components/datetime-indicator.vue";
 import Measurement from "../components/measurement.vue";
@@ -7,6 +9,14 @@ import UserMessages from "../components/user-messages.vue";
 import WelcomeStreamModal from "../components/welcome-screen/welcome-stream-modal.vue";
 
 import MdiTwitter from "~icons/mdi/twitter";
+
+const TIMER_DURATION = 10;
+
+const router = useRouter();
+
+function nextPage() {
+  return router.push({ name: "/startup" });
+}
 </script>
 
 <template>
@@ -23,7 +33,11 @@ import MdiTwitter from "~icons/mdi/twitter";
 
     <UserMessages />
 
-    <WelcomeStreamModal class="absolute inset-0 z-10 m-auto" />
+    <WelcomeStreamModal
+      :duration="TIMER_DURATION"
+      @timerEnded="nextPage"
+      class="absolute inset-0 z-10 m-auto"
+    />
 
     <Measurement v-if="false" />
   </DashBorderOverlay>

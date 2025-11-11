@@ -2,11 +2,14 @@
 import { computed, onMounted, reactive, ref } from "vue";
 import { useCurrentElement } from "@vueuse/core";
 import { faker } from "@faker-js/faker";
+import { useRouter } from "vue-router";
 
 import DashBorderOverlay from "../components/dash-border-overlay.vue";
 import { wait } from "../utils/wait";
 
 const CIRCLE_START_ANGLE = 180;
+
+const router = useRouter();
 
 const componentRootElement = useCurrentElement<HTMLElement>();
 const loaderElement = ref<HTMLElement | undefined>();
@@ -362,6 +365,7 @@ async function wholeAnimation() {
     duration: 500,
     fill: "forwards",
   }).finished;
+  await nextPage();
 }
 
 function animateLoaderInPlace() {
@@ -407,6 +411,10 @@ async function animateLogsWriting() {
       visibleBlock.logs.push(log);
     }
   }
+}
+
+function nextPage() {
+  return router.push({ name: "/loader" });
 }
 </script>
 

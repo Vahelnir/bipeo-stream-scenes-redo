@@ -2,9 +2,6 @@
 import { computed } from "vue";
 import { useWindowSize } from "@vueuse/core";
 
-import LoadingScreen from "./pages/loading-screen.vue";
-import WelcomeScreen from "./pages/welcome-screen.vue";
-
 const { width, height } = useWindowSize();
 const dimensions = computed(() => ({
   width: 1920,
@@ -23,7 +20,6 @@ const scale = computed(() => Math.min(width.value / 1920, height.value / 1080));
       transformOrigin: 'top left',
     }"
   >
-    <!-- <WelcomeScreen /> -->
-    <LoadingScreen />
+    <RouterView />
   </div>
 </template>
