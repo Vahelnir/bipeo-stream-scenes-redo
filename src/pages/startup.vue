@@ -344,7 +344,13 @@ onMounted(async () => {
 });
 
 async function wholeAnimation() {
-  await animateLoaderInPlace().finished;
+  await Promise.all([
+    componentRootElement.value.animate([{ opacity: 0 }, { opacity: 1 }], {
+      duration: 500,
+      fill: "forwards",
+    }).finished,
+    animateLoaderInPlace().finished,
+  ]);
 
   await animateLogsWriting();
   await wait(400);

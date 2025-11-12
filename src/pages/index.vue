@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useCurrentElement } from "@vueuse/core";
 import { useRouter } from "vue-router";
 
 import DashBorderOverlay from "../components/dash-border-overlay.vue";
@@ -13,8 +14,13 @@ import MdiTwitter from "~icons/mdi/twitter";
 const TIMER_DURATION = 10;
 
 const router = useRouter();
+const rootElement = useCurrentElement<HTMLElement>();
 
-function nextPage() {
+async function nextPage() {
+  await rootElement.value?.animate([{ opacity: 1 }, { opacity: 0 }], {
+    duration: 1000,
+    fill: "forwards",
+  }).finished;
   return router.push({ name: "/startup" });
 }
 </script>
