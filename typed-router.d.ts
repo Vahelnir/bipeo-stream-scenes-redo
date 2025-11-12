@@ -37,6 +37,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/start-screen': RouteRecordInfo<
+      '/start-screen',
+      '/start-screen',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/startup': RouteRecordInfo<
       '/startup',
       '/startup',
@@ -66,6 +73,12 @@ declare module 'vue-router/auto-routes' {
     'src/pages/loader.vue': {
       routes:
         | '/loader'
+      views:
+        | never
+    }
+    'src/pages/start-screen.vue': {
+      routes:
+        | '/start-screen'
       views:
         | never
     }
