@@ -1,5 +1,11 @@
+<script setup lang="ts">
+import DashBorderOverlay from "../components/dash-border-overlay.vue";
+</script>
+
 <template>
-  <div class="bg-white w-full h-full text-black">
-    <h1>Welcome to the Start Screen</h1>
-  </div>
+  <DashBorderOverlay theme="light">
+    <div class="w-full h-full text-black">
+      <h1>Welcome to the Start Screen</h1>
+    </div>
+  </DashBorderOverlay>
 </template>
