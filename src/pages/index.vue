@@ -29,11 +29,11 @@ async function nextPage() {
   <DashBorderOverlay>
     <MusicPlayer class="absolute top-3 left-24 max-w-100" />
     <DatetimeIndicator class="absolute top-3 right-24 w-60" />
-    <div class="absolute bottom-5.5 left-24 w-44">
+    <div class="absolute bottom-3.5 left-24 w-44">
       <div
         class="flex h-6 justify-center gap-3 rounded-lg bg-bipeo-dark-blue px-2 font-bold"
       >
-        <MdiTwitter class="mt-0.5" /> @Copypeo_dev
+        <MdiTwitter class="mt-0.5" /> @Cloneo_dev
       </div>
     </div>
 

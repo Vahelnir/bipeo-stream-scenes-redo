@@ -15,7 +15,7 @@ defineOptions({
 
 <template>
   <div
-    class="h-full w-full px-2"
+    class="h-full w-full"
     :class="{
       'theme-dark': theme === 'dark',
       'theme-light': theme === 'light',

@@ -30,10 +30,10 @@ const logs: Block[] = [
     type: "category",
     after: 1000,
     title:
-      "CopypeOS [v1.5.8] - Compilation personnalisée du noyau: xnu-bp/RELEASE_x64",
+      "CopypeOS [v1.5.8] - Compilation personnalisée du noyau: xnu-cn/RELEASE_x64",
     logs: [
-      { label: "Identifiant machine : BPE-LX9007-42", after: 100 },
-      { label: "Micrologiciel : EFI unifié Copypeo v3.2", after: 100 },
+      { label: "Identifiant machine : CNE-LX9007-42", after: 100 },
+      { label: "Micrologiciel : EFI unifié Cloneo v3.2", after: 100 },
       { label: "Démarrage sécurisé : ACTIVÉ", after: 100 },
     ],
     bigPadding: false,
@@ -44,7 +44,7 @@ const logs: Block[] = [
     logs: [
       {
         after: 1000,
-        label: "Processeur : Bipeon Zeta-9 @ 4.2THz (16 cœurs hybrides)",
+        label: "Processeur : Cloneon Zeta-9 @ 4.2THz (16 cœurs hybrides)",
         status: "OK",
       },
       {
@@ -124,17 +124,17 @@ const logs: Block[] = [
     logs: [
       {
         after: 500,
-        label: "/dev/bpeOs1 monté sur /",
+        label: "/dev/cneOs1 monté sur /",
         status: "OK",
       },
       {
         after: 100,
-        label: "/dev/bpeOs2 monté sur /home",
+        label: "/dev/cneOs2 monté sur /home",
         status: "OK",
       },
       {
         after: 100,
-        label: "/dev/bpeOs3 monté sur /data",
+        label: "/dev/cneOs3 monté sur /data",
         status: "OK",
       },
     ],
@@ -151,7 +151,7 @@ const logs: Block[] = [
       },
       {
         after: 100,
-        label: "Connexion établie avec le point d'accès : 'BipeoNet'",
+        label: "Connexion établie avec le point d'accès : 'CloneoNet'",
         status: "OK",
       },
       {
@@ -176,7 +176,7 @@ const logs: Block[] = [
       },
       {
         after: 500,
-        label: "Service DNS démarré (bpdnsd)",
+        label: "Service DNS démarré (cndnsd)",
         status: "OK",
       },
     ],
@@ -189,12 +189,12 @@ const logs: Block[] = [
     logs: [
       {
         after: 100,
-        label: "Planificateur de tâches (bpe-crond)",
+        label: "Planificateur de tâches (cne-crond)",
         status: "OK",
       },
       {
         after: 100,
-        label: "Journalisation système (bpe-logger)",
+        label: "Journalisation système (cne-logger)",
         status: "OK",
       },
       {
@@ -204,7 +204,7 @@ const logs: Block[] = [
       },
       {
         after: 100,
-        label: "Démon de file de messages (mq-bpe)",
+        label: "Démon de file de messages (mq-cne)",
         status: "OK",
       },
       {
@@ -300,7 +300,7 @@ const logs: Block[] = [
       },
       {
         after: 100,
-        label: "WebSocket : chat.bipeo.lan <-> passerelle IRC Twitch en ligne",
+        label: "WebSocket : chat.cloneo.lan <-> passerelle IRC Twitch en ligne",
         status: "OK",
       },
       {
